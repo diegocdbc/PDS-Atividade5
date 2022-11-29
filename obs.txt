@@ -1,0 +1,30 @@
+# Plano de ação:
+
+1- Avião solicita permissão de pouso para a torre(mediador). essa solicitação de permissão deve ser o ato de 
+inscrição n publisher(torre).
+2- Torre inscreve(Observer) aeronave solicitante.
+3- Evento: toda vez que a pista estiver disponível para aterrissagem, a torre notificará a próxima aeronave 
+para aterrissagem.
+4- A pista terá que timear um periodo de simulação de pouso, desembarque de passageiros, verificação de 
+segurança da pista para novo pouso.
+
+# O que vai mudar:
+
+1- A torre vai ter que ser também um publisher, contendo todos os subscribers.              []
+List<Flight> flightList=new ArrayList<Flight>();                                            [OK]
+public void subscribe(Flight aeronave);                                                     [OK]
+public void unsubscribe(Flight aeronave);                                                   [OK]
+public void notify();                                                                       []
+2- As aeronaves vão ter que ser um subscriber                                               []
+public void update();                                                                       []
+3- Realização de pouso                                                                      []
+ - Runway.land() vai settar land para true
+ - Depois que Flight pousar(Flight.land()), vai ter que comunicar a torrer para que ela
+ acione a equipe terceirizad para apoiar
+4- implementar outsourcedTeam()                                                             [OK]
+    -> Responsável pelo apoio no desembarque dos passageiros e limpeza da pista para que 
+    um novo pouso seja possível.
+
+# dúvidas:
+
+1- torre funcionando como mediator e observer ao mesmo tempo, ta certo?
