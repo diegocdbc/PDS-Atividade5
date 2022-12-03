@@ -1,6 +1,6 @@
 package CommandClass;
 
-import ATCMediator.ATCMediator;
+import ATC.ATCMediator;
 
 /**
  * Componente 1: Flight (representa um vôo de uma empresa aérea)
@@ -23,7 +23,8 @@ public class Flight implements Command {
     public void land() {
         if (atcMediator.isLandingOk()) {
             System.out.println("Flight " + flightNumber + " Successfully Landed.");
-            atcMediator.setLandingStatus(true);
+            atcMediator.setLandingStatus(false);
+            atcMediator.unregisterFlight(this);
         } else
             System.out.println("Waiting for landing.");
 
@@ -32,6 +33,7 @@ public class Flight implements Command {
     public void getReady() {
         System.out
                 .println("Voo " + this.flightNumber + " da " + this.airline + " solicitando autorizacao para pouso...");
+        this.atcMediator.registerFlight(this);
 
     }
 

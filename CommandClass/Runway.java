@@ -1,6 +1,6 @@
 package CommandClass;
 
-import ATCMediator.ATCMediator;
+import ATC.ATCMediator;
 
 /**
  * Componente 2: Runway (representa a pista de pouso)
@@ -18,9 +18,11 @@ public class Runway implements Command {
 
     @Override
     public void land() {
-        System.out.println("Landing permission granted.");
-        atcMediator.setLandingStatus(true);
-
+        if (this.atcMediator.isLandingOk()) {
+            System.out.println("Landing permission granted.");
+        } else {
+            System.out.println("Landing permission denied.");
+        }
     }
 
 }
