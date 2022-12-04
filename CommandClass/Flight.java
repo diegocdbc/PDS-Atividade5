@@ -22,23 +22,23 @@ public class Flight implements Command {
     @Override
     public void land() {
         if (atcMediator.isLandingOk()) {
-            System.out.println("Flight " + flightNumber + " Successfully Landed.");
-            atcMediator.setLandingStatus(false);
-            atcMediator.unregisterFlight(this);
+            System.out.println("[" + this.flightNumber + "]: Successfully Landed.");
+            atcMediator.reportLanding(this);
         } else
-            System.out.println("Waiting for landing.");
+            System.out.println("[" + this.flightNumber + "]: Waiting for landing.");
 
     }
 
     public void getReady() {
         System.out
-                .println("Voo " + this.flightNumber + " da " + this.airline + " solicitando autorizacao para pouso...");
+                .println("[" + this.flightNumber + "]:  solicitando autorização para pouso...");
         this.atcMediator.registerFlight(this);
 
     }
 
-    public String getFlight() {
-        return this.flightNumber;
+    @Override
+    public String toString() {
+        return this.flightNumber + " da " + this.airline;
     }
 
 }

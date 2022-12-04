@@ -20,21 +20,23 @@ public class MainMediator {
                 OutsourcedTeam ost = new OutsourcedTeam(atcMediator);
 
                 atcMediator.registerRunway(mainRunway);
+                atcMediator.registerOST(ost);
 
-                System.out.println(">> Contato da aeronave 1....");
+                System.out.println("[MAIN]: Contato da aeronave 1....");
                 f1.getReady();
                 System.out.println();
+                System.out.println("[MAIN]: Contato da aeronave 2....");
+                f2.getReady();
+                System.out.println();
+                // System.out.println(atcMediator);
 
-                System.out.println(">> Consultando situacao da pista....");
+                System.out.println("[MAIN]: Consultando situacao da pista...");
                 mainRunway.land();
                 System.out.println();
 
-                f1.land();
-
                 // Para realizar um novo pouso será necessário acionar a equipe para desembarque
                 // a veriguação da pista.
-                ost.disembarkPassengers();
-
+                // ost.startWork();
         }
 
 }

@@ -13,6 +13,8 @@ public interface ATCMediator {
 
     public void unregisterFlight(Flight flight);
 
+    public void reportLanding(Flight flight);
+
     public boolean isLandingOk();
 
     public void setLandingStatus(boolean status);

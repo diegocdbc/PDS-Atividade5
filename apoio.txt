@@ -1,8 +1,8 @@
 # Plano de ação:
 
-1- Avião solicita permissão de pouso para a torre(mediador). essa solicitação de permissão deve ser o ato de 
+1- Avião solicita permissão de pouso(Flight.getReady()) para a torre(mediador). essa solicitação de permissão deve ser o ato de 
 inscrição n publisher(torre).
-2- Torre inscreve(Observer) aeronave solicitante.
+2- Torre(Observer) inscreve aeronave solicitante(ATC.registerFlight()).
 3- Evento: toda vez que a pista estiver disponível para aterrissagem, a torre notificará a próxima aeronave 
 para aterrissagem.
 4- A pista terá que timear um periodo de simulação de pouso, desembarque de passageiros, verificação de 
@@ -32,4 +32,7 @@ public void update();                                                           
 
 
 ---
-implementar notificação de aeronaves
+implementar notificação de aeronaves [OK]
+notificar próxima aeronave [OK]
+
+criar a interface subscriber das flights e realizar o subscriber no publisher(torre) que hoje tá no gedReady()

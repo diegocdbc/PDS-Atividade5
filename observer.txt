@@ -1,15 +1,13 @@
-# PDS-Atividade5
+- Observer
 
-## Observer
-
-### Objetos:
+#Objetos:
 
 Flight: Aeronave
 Runway: Pista.
 ATCMediator: Torre.
 OutsourcedTeam: Equipe de apoio.
 
-### Como foi aplicado o padrão:
+# Como foi aplicado o padrão:
 
 1- Flight(subscriber) notifica(se inscreve no Publisher) intenção de pouso.
 	- Através do método .getReady()
