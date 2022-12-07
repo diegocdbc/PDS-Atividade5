@@ -23,7 +23,8 @@ public class Flight implements Command {
     public void land() {
         if (atcMediator.isLandingOk()) {
             System.out.println("Flight " + flightNumber + " Successfully Landed.");
-            atcMediator.setLandingStatus(true);
+            atcMediator.unregisterFlight(this);
+            atcMediator.changeStateRunway();
         } else
             System.out.println("Waiting for landing.");
 
