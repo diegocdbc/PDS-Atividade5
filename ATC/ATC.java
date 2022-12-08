@@ -1,18 +1,17 @@
 package ATC;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import CommandClass.Flight;
 import CommandClass.Runway;
+import LandingQueueObserver.QueueLandingController;
 import OutsourcedTeam.OutsourcedTeam;
 
-public class ATC implements ATCMediator, ATCObserver {
-	private List<Flight> flightList = new ArrayList<Flight>();
+public class ATC implements ATCMediator {
 	private Runway runway;
+	private QueueLandingController airQueue;
 	public boolean land;
 	public OutsourcedTeam ost;
 
+	// Methods registration
 	@Override
 	public void registerRunway(Runway runway) {
 		this.runway = runway;
@@ -26,17 +25,12 @@ public class ATC implements ATCMediator, ATCObserver {
 	}
 
 	@Override
-	public void registerFlight(Flight flight) {
-		this.flightList.add(flight);
+	public void registerAirQueue(QueueLandingController airQueue) {
+		this.airQueue = airQueue;
 
 	}
 
-	@Override
-	public void unregisterFlight(Flight flight) {
-		this.flightList.remove(flight);
-
-	}
-
+	// Methods ATC - Runway
 	@Override
 	public boolean isLandingOk() {
 		return land;
@@ -45,55 +39,48 @@ public class ATC implements ATCMediator, ATCObserver {
 
 	@Override
 	public void setLandingStatus(boolean status) {
-		if (status == true && this.land == false) {
-			this.land = status;
-			System.out.println("[TORRE]: Consulting flights available");
-			this.notifyFlights();
-		} else if (status == false && this.land == true) {
-			this.ost.startWork();
-			this.land = status;
-		} else {
-			System.out.println("[TORRE]: Consulting flights available");
-			this.land = status;
-			this.notifyFlights();
-		}
+		land = status;
 	}
 
 	@Override
-	public void notifyFlights() {
-		if (this.flightList.size() > 0) {
-			System.out.println("[TORRE]: Flight " + this.flightList.get(0) + " Cleared to land.");
-			if (this.flightList.size() > 1) {
-				System.out.println("[TORRE]: Flight " + this.flightList.get(1) + " Wait for land, you is next.");
-			}
-			// System.out.println("**** " + this.flightList.get(0) + " ****");
-			this.flightList.get(0).land();
-		} else {
-			System.out.println("[TORRE]: There are no aircraft waiting to land");
-		}
+	public void checkTrackStatus() {
+		this.runway.land();
+
 	}
 
+	@Override
+	public void changeStateRunway() {
+		this.runway.getState().changeState();
+	}
+
+	// Methods ATC - Flight
 	@Override
 	public void reportLanding(Flight flight) {
-		this.unregisterFlight(flight);
-		System.out.println("[TORRE]: Flights waiting for landing: " + this);
+		this.requestRemoval(flight);
+		System.out.println("[TORRE]: Flights waiting for landing: " + this.airQueue);
 		this.setLandingStatus(false);
+		this.changeStateRunway();
 	}
 
 	@Override
-	public String toString() {
-		String aux = "[ ";
-		if (this.flightList.size() > 0) {
-			for (int i = 0; i < this.flightList.size(); i++) {
-				if (i != this.flightList.size() - 1) {
-					aux += this.flightList.get(i) + ", ";
-				} else {
-					aux += this.flightList.get(i);
-				}
-
-			}
-		}
-		return aux + " ]";
+	public Boolean checkEligibility(Flight flight) {
+		return airQueue.verifyPermission(flight);
 	}
 
+	// Methods ATC - AirQueue
+	@Override
+	public void requestAddition(Flight flight) {
+		this.airQueue.registerFlight(flight);
+	}
+
+	@Override
+	public void requestRemoval(Flight flight) {
+		this.airQueue.unregisterFlight(flight);
+	}
+
+	// Methods ATC - OST
+	@Override
+	public void summonSupportTeam() {
+		this.ost.startWork();
+	}
 }

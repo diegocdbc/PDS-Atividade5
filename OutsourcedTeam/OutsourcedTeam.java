@@ -25,6 +25,7 @@ public class OutsourcedTeam {
             }
         }
         System.out.println(">> Desembarque finalizado com sucesso!");
+        atcMediator.changeStateRunway();
         this.checkRunway();
     }
 
@@ -44,6 +45,7 @@ public class OutsourcedTeam {
 
     public void talkTower() {
         System.out.println(">> Tudo ok para novo pouso!\n");
+        atcMediator.changeStateRunway();
         this.atcMediator.setLandingStatus(true);
     }
 }

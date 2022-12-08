@@ -8,7 +8,7 @@ import ATC.ATCMediator;
  * @author alexs
  *
  */
-public class Flight implements Command {
+public class Flight implements Command, FlightPrelanding {
     private ATCMediator atcMediator = null;
     private String flightNumber = null;
     private String airline = null;
@@ -21,7 +21,7 @@ public class Flight implements Command {
 
     @Override
     public void land() {
-        if (atcMediator.isLandingOk()) {
+        if (atcMediator.isLandingOk() && atcMediator.checkEligibility(this)) {
             System.out.println("[" + this.flightNumber + "]: Successfully Landed.");
             atcMediator.reportLanding(this);
         } else
@@ -29,16 +29,22 @@ public class Flight implements Command {
 
     }
 
-    public void getReady() {
+    public void contactTower() {
         System.out
                 .println("[" + this.flightNumber + "]:  solicitando autorização para pouso...");
-        this.atcMediator.registerFlight(this);
+        this.atcMediator.requestAddition(this);
 
     }
 
     @Override
     public String toString() {
         return this.flightNumber + " da " + this.airline;
+    }
+
+    @Override
+    public void getSituation(String situation) {
+        System.out.println(situation);
+
     }
 
 }
