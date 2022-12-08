@@ -1,7 +1,9 @@
-import ATCMediator.ATC;
-import ATCMediator.ATCMediator;
+import ATC.ATC;
+import ATC.ATCMediator;
 import CommandClass.Flight;
 import CommandClass.Runway;
+import LandingQueueObserver.QueueLandingController;
+import OutsourcedTeam.OutsourcedTeam;
 
 public class MainMediator {
 
@@ -10,23 +12,59 @@ public class MainMediator {
 
                 // Componente 1
                 Flight f1 = new Flight(atcMediator, "LATAM", "LA4542");
-
+                Flight f2 = new Flight(atcMediator, "GOL", "CB4329");
+                Flight f3 = new Flight(atcMediator, "QATAR AIWAYS", "QA1329");
                 // Componente 2
                 Runway mainRunway = new Runway(atcMediator);
 
-                atcMediator.registerFlight(f1);
+                // Component 3
+                OutsourcedTeam ost = new OutsourcedTeam(atcMediator);
+
+                // Component 4
+                QueueLandingController airQueue = new QueueLandingController(atcMediator);
+
+                // Mediator registration
                 atcMediator.registerRunway(mainRunway);
+                atcMediator.registerOST(ost);
+                atcMediator.registerAirQueue(airQueue);
 
-                System.out.println(">> Contato da aeronave 1....");
-                f1.getReady();
+                // Execution
+                System.out.println("\n[MAIN]: Contato da aeronave 1....");
+                f1.contactTower();
                 System.out.println();
 
-                System.out.println(">> Consultando situacao da pista....");
-                mainRunway.land();
+                System.out.println("\n[MAIN]: Contato da aeronave 2....");
+                f2.contactTower();
                 System.out.println();
 
+                System.out.println("\n[MAIN]: Contato da aeronave 3....");
+                f2.contactTower();
+                System.out.println();
+
+                System.out.println("\n[MAIN]: Consultando situacao da pista...");
+                atcMediator.checkTrackStatus();
+                System.out.println();
+
+                System.out.println("\n[MAIN]: Aeronave " + f1 + " indica a torre que irá pousar");
                 f1.land();
 
+                System.out.println("\n[MAIN]: Consultando situacao da pista para novo pouso...");
+                atcMediator.checkTrackStatus();
+                System.out.println();
+
+                System.out.println("\n[MAIN]: Aeronave " + f2 + " indica a torre que irá pousar");
+                f2.land();
+
+                atcMediator.summonSupportTeam();
+
+                System.out.println("\n[MAIN]: Consultando situacao da pista para novo pouso...");
+                atcMediator.checkTrackStatus();
+                System.out.println();
+
+                System.out.println("\n[MAIN]: Aeronave " + f2 + " indica a torre que irápousar");
+                f2.land();
+
+                atcMediator.summonSupportTeam();
         }
 
 }
