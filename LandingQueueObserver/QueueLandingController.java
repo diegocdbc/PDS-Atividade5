@@ -25,14 +25,11 @@ public class QueueLandingController {
     public void notifyFlights() {
         for (int i = 0; i < this.flightList.size(); i++) {
             if (i == 0) {
-                this.flightList.get(i)
-                        .getSituation("[AIR QUEUE]: Flight " + this.flightList.get(0) + " Cleared to land.");
+                this.atcMediator.informCondition(this.flightList.get(i), "Cleared to land.");
             } else if (i == 1) {
-                this.flightList.get(i)
-                        .getSituation("[AIR QUEUE]: Flight " + this.flightList.get(1) + " Wait for land, you is next.");
+                this.atcMediator.informCondition(this.flightList.get(i), "Wait for land, you is next.");
             } else {
-                this.flightList.get(i)
-                        .getSituation("[AIR QUEUE]: Wait, soon it will be released to land");
+                this.atcMediator.informCondition(this.flightList.get(i), "Wait, soon it will be released to land");
             }
         }
     }

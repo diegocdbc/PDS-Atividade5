@@ -12,6 +12,7 @@ public class Flight implements Command, FlightPrelanding {
     private ATCMediator atcMediator = null;
     private String flightNumber = null;
     private String airline = null;
+    private String landingCondition = "";
 
     public Flight(ATCMediator atcMediator, String airline, String flight) {
         this.atcMediator = atcMediator;
@@ -36,14 +37,19 @@ public class Flight implements Command, FlightPrelanding {
 
     }
 
+    public void setLandingCondition(String newCondition) {
+        this.landingCondition = newCondition;
+        this.showSituation(newCondition);
+    }
+
     @Override
     public String toString() {
         return this.flightNumber + " da " + this.airline;
     }
 
     @Override
-    public void getSituation(String situation) {
-        System.out.println(situation);
+    public void showSituation(String situation) {
+        System.out.println("[AIR QUEUE]: Flight " + this + " " + situation);
 
     }
 

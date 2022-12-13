@@ -14,6 +14,7 @@ public class MainMediator {
                 Flight f1 = new Flight(atcMediator, "LATAM", "LA4542");
                 Flight f2 = new Flight(atcMediator, "GOL", "CB4329");
                 Flight f3 = new Flight(atcMediator, "QATAR AIWAYS", "QA1329");
+                Flight f4 = new Flight(atcMediator, "AZUL", "RJ1227");
                 // Componente 2
                 Runway mainRunway = new Runway(atcMediator);
 
@@ -38,7 +39,11 @@ public class MainMediator {
                 System.out.println();
 
                 System.out.println("\n[MAIN]: Contato da aeronave 3....");
-                f2.contactTower();
+                f3.contactTower();
+                System.out.println();
+
+                System.out.println("\n[MAIN]: Contato da aeronave 4....");
+                f4.contactTower();
                 System.out.println();
 
                 System.out.println("\n[MAIN]: Consultando situacao da pista...");
@@ -61,8 +66,26 @@ public class MainMediator {
                 atcMediator.checkTrackStatus();
                 System.out.println();
 
-                System.out.println("\n[MAIN]: Aeronave " + f2 + " indica a torre que irápousar");
+                System.out.println("\n[MAIN]: Aeronave " + f2 + " indica a torre que irá pousar");
                 f2.land();
+
+                atcMediator.summonSupportTeam();
+
+                System.out.println("\n[MAIN]: Consultando situacao da pista para novo pouso...");
+                atcMediator.checkTrackStatus();
+                System.out.println();
+
+                System.out.println("\n[MAIN]: Aeronave " + f3 + " indica a torre que irá pousar");
+                f3.land();
+
+                atcMediator.summonSupportTeam();
+
+                System.out.println("\n[MAIN]: Consultando situacao da pista para novo pouso...");
+                atcMediator.checkTrackStatus();
+                System.out.println();
+
+                System.out.println("\n[MAIN]: Aeronave " + f4 + " indica a torre que irá pousar");
+                f4.land();
 
                 atcMediator.summonSupportTeam();
         }

@@ -51,6 +51,9 @@ public class ATC implements ATCMediator {
 	@Override
 	public void changeStateRunway() {
 		this.runway.getState().changeState();
+		if (this.runway.getState().getAuthorization()) {
+			this.airQueue.notifyFlights();
+		}
 	}
 
 	// Methods ATC - Flight
@@ -65,6 +68,11 @@ public class ATC implements ATCMediator {
 	@Override
 	public Boolean checkEligibility(Flight flight) {
 		return airQueue.verifyPermission(flight);
+	}
+
+	@Override
+	public void informCondition(Flight flight, String newCondition) {
+		flight.setLandingCondition(newCondition);
 	}
 
 	// Methods ATC - AirQueue

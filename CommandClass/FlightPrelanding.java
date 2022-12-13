@@ -1,5 +1,5 @@
 package CommandClass;
 
 public interface FlightPrelanding {
-    void getSituation(String situation);
+    void showSituation(String situation);
 }
