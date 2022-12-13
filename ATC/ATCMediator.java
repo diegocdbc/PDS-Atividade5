@@ -19,6 +19,8 @@ public interface ATCMediator {
 
     public Boolean checkEligibility(Flight flight);
 
+    public void informCondition(Flight flight, String newCondition);
+
     // Methods ATC - Runway
     public boolean isLandingOk();
 
