@@ -1,0 +1,14 @@
+IV.
+
+a) Foi aplicado o padrão state na classe Runway, agora ela possui três estados que determinam seu comportamento(UnavailableRunwayState,
+AvailableRunwayState,InsecureRunwayState). Apenas o state "UnavailableRunwayState" permite um novo pouso, para a realização de um novo
+pouso será necessário que a torre acione a equipe de solo para realizar as ações de desembarque que irá alterar o state da pista para
+"InsecureRunwayState" e então realizar a varredura de segurança da pista para possibilitar um novo pouso, alterando o state para
+"AvailableRunwayState".
+
+b) o Padrão de escolha foi o observer para complementar a lógica do state, já que um dos critérios de permissão de pouso da aeronave fora
+o state ser "AvailableRunwayState" é se a aeronave é elegivel para o pouso, ou seja, se ela tem a prioridade de pouso. O padrão observer é
+melhor explicado no arquivo "padroes.txt"
+
+c) Sim, como os componentes Flight e Runway não tem referência um do outro e toda a comunicação é intermediada pelo mediator, os componentes
+são independentes.

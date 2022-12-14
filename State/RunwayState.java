@@ -1,5 +1,6 @@
 package State;
 
+import ATC.ATCMediator;
 import CommandClass.Runway;
 
 public interface RunwayState {
@@ -10,4 +11,6 @@ public interface RunwayState {
     public boolean getAuthorization();
 
     public String getDescription();
+
+    public void reportStateLanding(ATCMediator atcMediator);
 }

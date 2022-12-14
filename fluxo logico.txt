@@ -1,0 +1,31 @@
+# Inicialização
+1- Criação de 3 aeronaves
+2- Crio a pista
+3- Crio a equipe terceirizada
+4- Crio a fila aérea
+5- Crio o mediador e registro a pista,equipe terceirizada e a fila aérea
+
+# Execução lógica
+1- Aeronave contacta a torre(.contactTower()) para indicar intensão de pouso.
+2- Torre ao ser contactada pela aeronave, contacta a fila aérea para requisitar a adição da aeronave solicitante(.requestAddition(Aeronave))
+3- Fila aérea registra aeronave solicitante (.registerFlight(Aeronave))
+4- Repete o processo para as outras aeronaves
+5- Torre consulta a disponibilidade da pista
+	- Pista retorna três possibilidades de resposta de acordo com seu estado operacional:
+		1- "Landing permission granted."(AvailableRunwayState)
+		2- "Landing permission denied." (UnavailableRunwayState)
+		3- "Landing permission denied. The track is currently in a state of insecurity" (InsecureRunwayState)
+6- Aeronave1 indica que irá aterriçar(.land)
+	- É feita a verificação se a pista está ok para pouso e se a aeronave é elegivel ao pouso(se é sua vez de pousar)
+	- Se as duas condições não forem atendidas a aeronave é informada que não tem permissão para pousar
+7- Aeronave pousa e informa a torre que o pouso foi realizado com sucesso
+8- Torre comunica a fila aérea que a aeronave pousou(.requestRemoval(aeronave))
+	- Setta o land para false
+9- Questiona a pista se pode ser realizado novo pouso
+	- Torre retorna que o pouso não está permitido, a pista está ocupada
+	- Tento pousar a aeronave2 mas sou notificado que não tenho autorização
+	- Necessário convocar a equipe terceirizada para realizar o desembarque
+10- Torre convoca a Equipe terceirizada para viabilizar novo pouso
+11- Equipe realiza o desembarque e altera o state da pista para insegura
+12- Equipe realiza a checagem de segurança e altera o state para disponível para um novo pouso
+13- Tudo ok para um novo pouso.
