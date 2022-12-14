@@ -14,6 +14,11 @@ public class Runway implements Command {
     private ATCMediator atcMediator = null;
     private RunwayState stateOperational;
 
+    /**
+     * Construtor da class Runway.
+     * 
+     * @param atcMediator
+     */
     public Runway(ATCMediator atcMediator) {
         this.atcMediator = atcMediator;
         this.stateOperational = new AvailableRunwayState();
@@ -21,26 +26,35 @@ public class Runway implements Command {
         atcMediator.setLandingStatus(this.stateOperational.getAuthorization());
     }
 
+    /**
+     * Método que será utilizado pelas classes concretas de cada state para realizar
+     * a troca de State.
+     * 
+     * @param state
+     */
     public void changeState(RunwayState state) {
         this.stateOperational = state;
     }
 
+    /**
+     * Método get para atributo privado referente ao State atual da pista.
+     * 
+     * @return
+     */
     public RunwayState getState() {
         return this.stateOperational;
     }
 
+    /*
+     * Método que será utilizado para se obter a informação se a pista está apta ou
+     * não para realizar novos pouso. O retorno do método varia de acordo com seu
+     * State.
+     * 
+     * @see CommandClass.Command#land()
+     */
     @Override
     public void land() {
-        if (this.stateOperational.getDescription().equals("Available for landing")) {
-            System.out.println("[Runway]: Landing permission granted.");
-            atcMediator.setLandingStatus(this.stateOperational.getAuthorization());
-        } else if (this.stateOperational.getDescription().equals("Unavailable for landing")) {
-            System.out.println("[Runway]: Landing permission denied.");
-            atcMediator.setLandingStatus(this.stateOperational.getAuthorization());
-        } else if (this.stateOperational.getDescription().equals("Insecure for landing")) {
-            System.out.println("[Runway]: Landing permission denied. The track is currently in a state of insecurity");
-            atcMediator.setLandingStatus(this.stateOperational.getAuthorization());
-        }
+        this.stateOperational.reportStateLanding(this.atcMediator);
     }
 
 }
