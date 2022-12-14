@@ -8,5 +8,11 @@ package CommandClass;
  *
  */
 public interface Command {
+    /*
+     * Método que será implementado pelas classes Flight e Runway relativas ao
+     * pouso.
+     * 
+     * @see CommandClass.Command#land()
+     */
     void land();
 }

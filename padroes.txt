@@ -1,0 +1,13 @@
+#Observer
+
+-> Os objetos Flight solicitam a torre a sua inscrição(.getReady()) para acompanhar o evento(elegibilidade ao pouso) e serem notificados 
+pelo observador(QueueLandingController, a fila aérea)
+-> A fila aérea(Observer) observa a torre, toda vez que a torre é notificada da disponibilização da pista a fila aérea é acionada
+e por intermedio da torre, notifica as aeronaves do evento.
+-> A lista de inscrição é dinâmica, as aeronaves são inscritas quando declaram interesse de pousar e são desinscritos quando o pouso 
+é realizado.
+
+#State
+
+-> os estados de uma pista(runway) determinam seu comportamento de pouso, além de ser deterinante para a lógica de como a equipe de 
+solo(OutsourcedTeam) deve agir para viabilizar um novo pouso
